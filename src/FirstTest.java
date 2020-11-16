@@ -115,14 +115,14 @@ public class FirstTest {
     }*/
 
 
-
-    @Test
+    //Домашнее задание №2
+    /*@Test
     public  void SearchStringExistText(){
-       /* waitForElementAndClick(
+       waitForElementAndClick(
                 By.xpath("//*[contains(@text,'SKIP')]"),
                 "Can't find 'SKIP'",
                 5
-        );*/
+        );
 
         waitForElementAndClick(
                 By.xpath("//*[contains(@resource-id,'org.wikipedia:id/search_container')]"),
@@ -146,6 +146,53 @@ public class FirstTest {
 
 
         );
+
+    }*/
+
+    //Домашнее задание №3
+    @Test
+    public  void SearchStringCancel(){
+
+        //Нажимаем на поиск
+        waitForElementAndClick(
+                By.xpath("//*[contains(@resource-id,'org.wikipedia:id/search_container')]"),
+                "Can't find element 'org.wikipedia:id/search_toolbar'",
+                5
+        );
+
+        //Вводим какое-то слово
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                "java",
+                "Can't find element 'Search wikipedia",
+                5
+        );
+
+
+        //Проверяем наличие статей
+        WebElement element=waitForElementPresent(
+                By.id("org.wikipedia:id/page_list_item_title"),
+                "There aren't some articles",
+                20
+        );
+
+
+        //Закрываем поиск
+        waitForElementAndClick(
+                By.xpath("//*[contains(@resource-id,'org.wikipedia:id/search_close_btn')]"),
+                "Can't find element 'org.wikipedia:id/search_close_btn'",
+                5
+        );
+
+
+        //Проверяем отсутствие статей
+        waitForElementNotPresent(
+                By.id("org.wikipedia:id/page_list_item_title"),
+                "Fail! There are some articles",
+                15
+        );
+
+
 
     }
 
