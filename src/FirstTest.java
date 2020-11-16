@@ -114,64 +114,15 @@ public class FirstTest {
 
     }*/
 
+
+
     @Test
-    public  void testCompireArticleTitle()
-    {
-//        waitForElementAndClick(
-//                By.xpath("//*[contains(@text,'SKIP')]"),
-//                "Can't find 'SKIP'",
-//                5
-//        );
-
-        waitForElementAndClick(
-                By.xpath("//*[contains(@resource-id,'org.wikipedia:id/search_container')]"),
-                "Can't find element 'org.wikipedia:id/search_toolbar'",
-                5
-        );
-
-
-//        waitForElementAndSendKeys(
-//                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-//                "java",
-//                "Can't find element 'Search wikipedia",
-//                5
-//        );
-        waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search…')]"),
-                "java",
-                "Can't find element 'Search wikipedia",
-                5
-        );
-
-        waitForElementAndClick(
-                By.xpath("//*[contains(@text,'Object-oriented programming language')]"),
-                "Can't find element 'org.wikipedia:id/search_toolbar'",
-                5
-        );
-
-        WebElement title_element=waitForElementPresent(
-                By.xpath("//*[contains(@resource-id,'org.wikipedia:id/view_page_title_text')]"),
-                "error in article",
-                5
-        );
-
-        String article_title = title_element.getAttribute("text");
-
-        Assert.assertEquals(
-                "we see unexpexted title",
-                "Java (programming language)",
-                article_title
-        );
-
-    }
-
-    /*@Test
     public  void SearchStringExistText(){
-        waitForElementAndClick(
+       /* waitForElementAndClick(
                 By.xpath("//*[contains(@text,'SKIP')]"),
                 "Can't find 'SKIP'",
                 5
-        );
+        );*/
 
         waitForElementAndClick(
                 By.xpath("//*[contains(@resource-id,'org.wikipedia:id/search_container')]"),
@@ -181,7 +132,7 @@ public class FirstTest {
 
 
         waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search Wikipedia')]"),
+                By.xpath("//*[contains(@text,'Search…')]"),
                 "java",
                 "Can't find element 'Search wikipedia",
                 5
@@ -196,7 +147,7 @@ public class FirstTest {
 
         );
 
-    }*/
+    }
 
     private WebElement waitForElementPresent(By by, String error_message, long timeOutSeconds){
         WebDriverWait wait =new WebDriverWait(driver, timeOutSeconds);
@@ -242,14 +193,14 @@ public class FirstTest {
     private WebElement assertElementHasText(By by, String error_message, long timeOutSeconds, String expected_text){
         WebElement title_element=waitForElementPresent(
                 by,
-                "error in title_element",
+                "error in finding element",
                 timeOutSeconds
         );
-        System.out.println("title_element "+title_element);
+        //System.out.println("title_element "+title_element);
         String article_title = title_element.getAttribute("text");
-        System.out.println("article_title "+article_title);
+       // System.out.println("article_title "+article_title);
         Assert.assertEquals(
-                "we see unexpexted title",
+                error_message,
                 expected_text,
                 article_title
         );
