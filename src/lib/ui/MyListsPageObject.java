@@ -8,12 +8,19 @@ public class MyListsPageObject  extends MainPageObject{
 
     public static final String
         FOLDER_BY_NAME_TPL = "//*[contains(@text,'{FOLDER_NAME}')]",
-        ARTICLE_BY_TITLE_TPL = "//*[contains(@text,'{TITLE}')]";
+        ARTICLE_BY_TITLE_TPL = "//*[contains(@text,'{TITLE}')]",
+        TITLE_NAME_OF_SMTH_BY_SUBSTRING = "//*[contains(@text,'{SUBSTRING}')]";
 
     private static String getFolderXPathByName(String name_of_folder)
     {
         return FOLDER_BY_NAME_TPL.replace("{FOLDER_NAME}", name_of_folder);
     }
+
+    /*TEMPLATES METHOD*/
+    private static String getXpathToFolderNameForSecondArticle(String substring) {
+        return TITLE_NAME_OF_SMTH_BY_SUBSTRING.replace("{SUBSTRING}", substring);
+    }
+    /*TEMPLATES METHOD*/
 
     private static String getSavedArticleXpathByTitle(String article_title)
     {
@@ -65,5 +72,27 @@ public class MyListsPageObject  extends MainPageObject{
                 "Can't swipe element 'Object-oriented programming language'"
         );
         this.waitForArticleToDisappearByTitle(article_xpath);
+    }
+
+    public void waitForElementPresentInMyList(String name_of_article)
+    {
+        String article=getXpathToFolderNameForSecondArticle(name_of_article);
+        this.waitForElementPresent(By.xpath(article),"Cannot find article",15);
+    }
+
+    public void waitForElementNotPresentInMyList(String name_of_article)
+    {
+        String article=getXpathToFolderNameForSecondArticle(name_of_article);
+        this.waitForElementNotPresent(By.xpath(article),"Search article wich was daleted",15);
+    }
+
+    public void clickOnSomeArticle(String name_of_article)
+    {
+        String article=getXpathToFolderNameForSecondArticle(name_of_article);
+        this.waitForElementAndClick(
+                By.xpath(article),
+                "Cannot find article with name",
+                15
+        );
     }
 }
