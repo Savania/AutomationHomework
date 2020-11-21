@@ -4,9 +4,11 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import junit.framework.TestCase;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.time.Duration;
 
 public class CoreTestCase extends TestCase {
     protected AppiumDriver<AndroidElement> driver;
@@ -28,11 +30,27 @@ public class CoreTestCase extends TestCase {
         capabilities.setCapability("app", "/home/anna/Desktop/JavaAppiumAutomation2/apks/org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL(AppiumURL), capabilities);
+        this.rotateScreenPortrait();
     }
 
     @Override
     protected void tearDown() throws Exception{
         driver.quit();
         super.tearDown();
+    }
+
+    protected void rotateScreenPortrait()
+    {
+        driver.rotate(ScreenOrientation.PORTRAIT);
+    }
+
+    protected void rotateScreenLandscape()
+    {
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+    }
+
+    protected void backgroundApp(int seconds)
+    {
+        driver.runAppInBackground(Duration.ofSeconds(seconds));
     }
 }
