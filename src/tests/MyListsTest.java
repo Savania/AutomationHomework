@@ -5,6 +5,10 @@ import lib.ui.ArticlePajeObject;
 import lib.ui.MyListsPageObject;
 import lib.ui.NavigationUI;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.ArticlePageObjectFactory;
+import lib.ui.factories.MyListPageObjectFactory;
+import lib.ui.factories.NavigationUIFactory;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class MyListsTest extends CoreTestCase
@@ -12,13 +16,13 @@ public class MyListsTest extends CoreTestCase
     @Test
     public void testSaveFirstArticleToMyList(){
 
-        SearchPageObject SearchPageObject= new SearchPageObject(driver);
+        SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = new ArticlePajeObject(driver);
+        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
         ArticlePajeObject.waitForTitleElement();
         String article_title =ArticlePajeObject.getArticleTitle();
         String name_of_folder = "Learning programming";
@@ -26,10 +30,10 @@ public class MyListsTest extends CoreTestCase
         ArticlePajeObject.addArticleToMyList(name_of_folder);
         ArticlePajeObject.closeArticle();
 
-        NavigationUI NavigationUI = new NavigationUI(driver);
+        NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.clickMyList();
 
-        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
         MyListsPageObject.openFolderByName(name_of_folder);
         MyListsPageObject.swipeByArticleToDelete(article_title);
     }
@@ -39,13 +43,13 @@ public class MyListsTest extends CoreTestCase
     public void testAddTwoArticlesAndDelOne(){
 
         //Add first article to my list
-        SearchPageObject SearchPageObject= new SearchPageObject(driver);
+        SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = new ArticlePajeObject(driver);
+        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
         ArticlePajeObject.waitForTitleElement();
         String first_article_title =ArticlePajeObject.getArticleTitle();
         String name_of_folder = "Learning programming";
@@ -66,10 +70,10 @@ public class MyListsTest extends CoreTestCase
         //Open my list and delete on of the articles
         ArticlePajeObject.closeArticle();
 
-        NavigationUI NavigationUI = new NavigationUI(driver);
+        NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.clickMyList();
 
-        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
         MyListsPageObject.openFolderByName(name_of_folder);
 
         MyListsPageObject.waitForElementPresentInMyList(first_article_title);

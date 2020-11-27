@@ -4,18 +4,18 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class ArticlePajeObject extends MainPageObject {
+abstract public class ArticlePajeObject extends MainPageObject {
 
-    private static final String
-            TITLE = "org.wikipedia:id/view_page_title_text",
-            FOOTER_ELEMENT = "//*[contains(@text,'View page in browser')]",
-            OPTIONS_BUTTON = "//*[contains(@content-desc,'More options')]",
-            OPTIONS_ADD_TO_MY_LIST_BUTTON = "//*[contains(@text,'Add to reading list')]",
-            ADD_TO_MY_LIST_OVERLAY = "//*[contains(@text,'Got it')]",
-            MY_LIST_NAME_INPUT = "org.wikipedia:id/text_input",
-            MY_LIST_OK_BUTTON = "android:id/button1",
-            CLOSE_ARTICLE_BUTTON = "//*[contains(@content-desc,'Navigate up')]",
-            TITLE_NAME_OF_SMTH_BY_SUBSTRING = "//*[contains(@text,'{SUBSTRING}')]";
+    protected static String
+            TITLE ,
+            FOOTER_ELEMENT ,
+            OPTIONS_BUTTON ,
+            OPTIONS_ADD_TO_MY_LIST_BUTTON,
+            ADD_TO_MY_LIST_OVERLAY,
+            MY_LIST_NAME_INPUT,
+            MY_LIST_OK_BUTTON ,
+            CLOSE_ARTICLE_BUTTON ,
+            TITLE_NAME_OF_SMTH_BY_SUBSTRING ;
 
 
 
@@ -30,12 +30,12 @@ public class ArticlePajeObject extends MainPageObject {
     /*TEMPLATES METHOD*/
 
     public WebElement waitForTitleElement() {
-        return this.waitForElementPresent(By.id(TITLE), "Cannot find artice titleon page! ", 15);
+        return this.waitForElementPresent(TITLE, "Cannot find artice titleon page! ", 15);
 
     }
 
     public WebElement assertArticleHasExpectedTitle(String title) {
-        return this.assertElementHasText(By.id(TITLE), "Cannot find artice titleon page! ", 15, title);
+        return this.assertElementHasText(TITLE, "Cannot find artice titleon page! ", 15, title);
 
     }
 
@@ -46,7 +46,7 @@ public class ArticlePajeObject extends MainPageObject {
 
     public void swipeToFooter() {
         this.swipeUpToFindElement(
-                By.xpath(FOOTER_ELEMENT),
+                FOOTER_ELEMENT,
                 "Cannot find the end of article",
                 20
         );
@@ -55,34 +55,34 @@ public class ArticlePajeObject extends MainPageObject {
     public void addArticleToMyList(String name_of_folder) {
 
         this.waitForElementAndClick(
-                By.xpath(OPTIONS_BUTTON),
+                OPTIONS_BUTTON,
                 "Can't find element 'More options'",
                 5
         );
 
 
         this.waitForElementAndClick(
-                By.xpath(OPTIONS_ADD_TO_MY_LIST_BUTTON),
+                OPTIONS_ADD_TO_MY_LIST_BUTTON,
                 "Can't find element 'Add to reading list'",
                 5
         );
 
         this.waitForElementAndClick(
-                By.xpath(ADD_TO_MY_LIST_OVERLAY),
+                ADD_TO_MY_LIST_OVERLAY,
                 "Can't find element 'Got it'",
                 5
         );
 
 
         this.waitForElementAndClear(
-                By.id(MY_LIST_NAME_INPUT),
+                MY_LIST_NAME_INPUT,
                 "Can't find element 'input text'",
                 5
         );
 
 
         this.waitForElementAndSendKeys(
-                By.id(MY_LIST_NAME_INPUT),
+                MY_LIST_NAME_INPUT,
                 "Learning programming",
                 "Can't send a text in input",
                 5
@@ -90,7 +90,7 @@ public class ArticlePajeObject extends MainPageObject {
 
 
         this.waitForElementAndClick(
-                By.id(MY_LIST_OK_BUTTON),
+                MY_LIST_OK_BUTTON,
                 "Can't find element 'android:id/button1'",
                 5
         );
@@ -98,7 +98,7 @@ public class ArticlePajeObject extends MainPageObject {
 
     public void closeArticle() {
         this.waitForElementAndClick(
-                By.xpath(CLOSE_ARTICLE_BUTTON),
+                CLOSE_ARTICLE_BUTTON,
                 "Can't find element 'Navigate up'",
                 5
         );
@@ -109,21 +109,21 @@ public class ArticlePajeObject extends MainPageObject {
     public void addSecondArticleToMyList(String name_of_folder) {
 
         this.waitForElementAndClick(
-                By.xpath(OPTIONS_BUTTON),
+                OPTIONS_BUTTON,
                 "Can't find element 'More options'",
                 5
         );
 
 
         this.waitForElementAndClick(
-                By.xpath(OPTIONS_ADD_TO_MY_LIST_BUTTON),
+                OPTIONS_ADD_TO_MY_LIST_BUTTON,
                 "Can't find element 'Add to reading list'",
                 5
         );
 
         String name_folder_xpath = getXpathToFolderNameForSecondArticle(name_of_folder);
         this.waitForElementAndClick(
-                By.xpath(name_folder_xpath),
+                name_folder_xpath,
                 "Can't find folder in my list",
                 15
         );
@@ -133,7 +133,7 @@ public class ArticlePajeObject extends MainPageObject {
     public void assertTitlePresentInArticle()
     {
         this.assertElementPresent(
-                By.id(TITLE),
+                TITLE,
                 "Can't find title"
         );
     }
