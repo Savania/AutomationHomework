@@ -38,12 +38,7 @@ public class AuthorizationPageObject extends MainPageObject{
 
     public void enterLoginData(String login, String password)
     {
-        this.waitForElementAndClear(LOGIN_INPUT,"Cannot clear a login input.",5);
-        System.out.println("here we input login");
-
         this.waitForElementAndSendKeys(LOGIN_INPUT, login,"Cannot find and put a login input.",5);
-        System.out.println("here did input login");
-        this.waitForElementAndClear(PASSWORD_INPUT,"Cannot clear a password input.",5);
         this.waitForElementAndSendKeys(PASSWORD_INPUT, password,"Cannot find and put a password input.",5);
     }
 
