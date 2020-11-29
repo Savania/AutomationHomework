@@ -13,6 +13,7 @@ abstract public class ArticlePageObject extends MainPageObject {
             FOOTER_ELEMENT ,
             OPTIONS_BUTTON ,
             OPTIONS_ADD_TO_MY_LIST_BUTTON,
+            OPTION_REMOVE_FROM_MY_LIST_BUTTON,
             ADD_TO_MY_LIST_OVERLAY,
             MY_LIST_NAME_INPUT,
             MY_LIST_OK_BUTTON ,
@@ -120,12 +121,41 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
 
+    public  void addArticlesToMySaved()
+    {
+        if (Platform.getInstance().isMw()){
+            this.removeArticleFromSavedIfItAdded();
+        }
+        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON,"Canot find option to add article to reading list",5);
+    }
+
+    public void removeArticleFromSavedIfItAdded (){
+        if (this.isElementPresent(OPTION_REMOVE_FROM_MY_LIST_BUTTON)){
+            this.waitForElementAndClick(
+                    OPTION_REMOVE_FROM_MY_LIST_BUTTON,
+                    "Cannot click button to remove an article from saved",
+                    5
+            );
+            this.waitForElementPresent(
+                    OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                    "Cannot find button to an article to saved list after removing from this lis before"
+            );
+        }
+    }
+
     public void closeArticle() {
-        this.waitForElementAndClick(
-                CLOSE_ARTICLE_BUTTON,
-                "Can't find element 'Navigate up'",
-                5
-        );
+        if ((Platform.getInstance().isAndroid())|| (Platform.getInstance().isIOS())){
+            this.waitForElementAndClick(
+                    CLOSE_ARTICLE_BUTTON,
+                    "Can't find element 'Navigate up'",
+                    5
+            );
+        }
+        else
+        {
+            System.out.println("Method closeArticle cant use in this platform");
+        }
+
 
     }
 
@@ -161,6 +191,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 "Can't find title"
         );
     }
+
 
 
 

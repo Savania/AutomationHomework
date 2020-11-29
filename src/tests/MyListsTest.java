@@ -1,10 +1,8 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.Platform;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
@@ -13,6 +11,11 @@ import org.junit.Test;
 
 public class MyListsTest extends CoreTestCase
 {
+    private static final String
+            login="Sovannanas",
+            password="Chris001",
+            name_of_folder="Learning programming";
+
     @Test
     public void testSaveFirstArticleToMyList(){
 
@@ -20,21 +23,44 @@ public class MyListsTest extends CoreTestCase
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
         String article_title = ArticlePageObject.getArticleTitle();
-        String name_of_folder = "Learning programming";
+        if (Platform.getInstance().isAndroid()){
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+        }
+        else{
+            ArticlePageObject.addArticlesToMySaved();
+        }
+        if (Platform.getInstance().isMw()){
+            AuthorizationPageObject AuthorizationPageObject=new AuthorizationPageObject(driver);
 
-        ArticlePageObject.addArticleToMyList(name_of_folder);
+            AuthorizationPageObject.clickAuthButton();
+            AuthorizationPageObject.enterLoginData(login,password);
+            AuthorizationPageObject.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+//            assertEquals(
+//                    "Wea are not on the same page after login",
+//                    article_title,
+//                    ArticlePageObject.getArticleTitle()
+//            );
+            ArticlePageObject.addArticlesToMySaved();
+        }
+
         ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
-        NavigationUI.clickMyList();
+        NavigationUI.openNavigation();
+
+        NavigationUI.clickMyLists();
 
         MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
-        MyListsPageObject.openFolderByName(name_of_folder);
+        if (Platform.getInstance().isAndroid()) {
+            MyListsPageObject.openFolderByName(name_of_folder);
+        }
         MyListsPageObject.swipeByArticleToDelete(article_title);
     }
 
@@ -47,12 +73,11 @@ public class MyListsTest extends CoreTestCase
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
         String first_article_title = ArticlePageObject.getArticleTitle();
-        String name_of_folder = "Learning programming";
 
         ArticlePageObject.addArticleToMyList(name_of_folder);
         ArticlePageObject.closeArticle();
@@ -71,7 +96,7 @@ public class MyListsTest extends CoreTestCase
         ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
-        NavigationUI.clickMyList();
+        NavigationUI.clickMyLists();
 
         MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
         MyListsPageObject.openFolderByName(name_of_folder);
