@@ -3,6 +3,7 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class ArticlePajeObject extends MainPageObject {
 
@@ -20,7 +21,7 @@ abstract public class ArticlePajeObject extends MainPageObject {
 
 
 
-    public ArticlePajeObject(AppiumDriver driver) {
+    public ArticlePajeObject(RemoteWebDriver driver) {
         super(driver);
     }
     /*TEMPLATES METHOD*/

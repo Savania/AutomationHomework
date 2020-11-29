@@ -2,6 +2,7 @@ package lib.ui.Android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.MyListsPageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidMyListPageObject extends MyListsPageObject {
     static {
@@ -11,7 +12,7 @@ public class AndroidMyListPageObject extends MyListsPageObject {
     }
 
 
-    public AndroidMyListPageObject(AppiumDriver driver) {
+    public AndroidMyListPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

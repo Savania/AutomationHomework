@@ -2,6 +2,7 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class SearchPageObject extends MainPageObject{
      protected static String
@@ -14,7 +15,7 @@ abstract public class SearchPageObject extends MainPageObject{
             SEARCH_STRING_WITH_REQUEST,
             PAGE_LIST_ITEM_TITLE;
 
-    public SearchPageObject(AppiumDriver driver){
+    public SearchPageObject(RemoteWebDriver driver){
         super(driver);
     }
     /*TEMPLATES METHOD*/

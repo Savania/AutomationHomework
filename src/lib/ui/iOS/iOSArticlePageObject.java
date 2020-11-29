@@ -3,6 +3,7 @@ package lib.ui.iOS;
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePajeObject;
 import lib.ui.NavigationUI;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSArticlePageObject extends ArticlePajeObject {
     static {
@@ -16,7 +17,7 @@ public class iOSArticlePageObject extends ArticlePajeObject {
         CLOSE_ARTICLE_BUTTON = "xpath://*[contains(@content-desc,'Navigate up')]";
         TITLE_NAME_OF_SMTH_BY_SUBSTRING = "xpath://*[contains(@text,'{SUBSTRING}')]";
     }
-    public iOSArticlePageObject(AppiumDriver driver) {
+    public iOSArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
 

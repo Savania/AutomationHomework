@@ -4,14 +4,15 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidElement;
 import junit.framework.TestCase;
 import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.time.Duration;
 
 public class CoreTestCase extends TestCase {
 
-    private static final String PLATFORM_IOS="ios";
-    private static final String PLATFORM_ANDROID="android";
-    protected AppiumDriver<AndroidElement> driver;
-    private static String AppiumURL= "http://127.0.0.1:4723/wd/hub";
+
+    protected RemoteWebDriver driver;
+
 
 
     @Override
@@ -20,27 +21,63 @@ public class CoreTestCase extends TestCase {
         super.setUp();
         driver=Platform.getInstance().getDriver();
         this.rotateScreenPortrait();
+        this.openWikuWebPageForMobileWeb();
     }
 
     @Override
     protected void tearDown() throws Exception{
         driver.quit();
         super.tearDown();
+
     }
 
     protected void rotateScreenPortrait()
     {
-        driver.rotate(ScreenOrientation.PORTRAIT);
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver=(AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.PORTRAIT);
+        }
+        else {
+            System.out.println("Method rotate screen portrate does nothing for platform"+Platform.getInstance().getPlatformVar());
+        }
+
     }
 
     protected void rotateScreenLandscape()
     {
-        driver.rotate(ScreenOrientation.LANDSCAPE);
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver=(AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.LANDSCAPE);
+        }
+        else {
+            System.out.println("Method rotate screen landscape does nothing for platform"+Platform.getInstance().getPlatformVar());
+        }
+
     }
+
+    protected void openWikuWebPageForMobileWeb()
+    {
+        if (Platform.getInstance().isMw())
+        {
+            driver.get("https://en.m.wikipedia.org");
+        }
+        else
+        {
+            System.out.println("Method does nothing for platform"+Platform.getInstance().getPlatformVar());
+        }
+    }
+
 
     protected void backgroundApp(int seconds)
     {
-        driver.runAppInBackground(Duration.ofSeconds(seconds));
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver=(AppiumDriver) this.driver;
+            driver.runAppInBackground(Duration.ofSeconds(seconds));
+        }
+        else {
+            System.out.println("Method run in background  does nothing for platform"+Platform.getInstance().getPlatformVar());
+        }
+
     }
 
 

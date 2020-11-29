@@ -2,6 +2,7 @@ package lib.ui.iOS;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.MyListsPageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSMyListPageObject extends MyListsPageObject {
     static {
@@ -10,7 +11,7 @@ public class iOSMyListPageObject extends MyListsPageObject {
                 TITLE_NAME_OF_SMTH_BY_SUBSTRING = "xpath://*[contains(@text,'{SUBSTRING}')]";
     }
 
-    public iOSMyListPageObject(AppiumDriver driver) {
+    public iOSMyListPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

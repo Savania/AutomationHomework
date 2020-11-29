@@ -2,6 +2,7 @@ package lib.ui.Android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePajeObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidArticlePageObject extends ArticlePajeObject
 {
@@ -16,7 +17,7 @@ public class AndroidArticlePageObject extends ArticlePajeObject
                 CLOSE_ARTICLE_BUTTON = "xpath://*[contains(@content-desc,'Navigate up')]";
                 TITLE_NAME_OF_SMTH_BY_SUBSTRING = "xpath://*[contains(@text,'{SUBSTRING}')]";
     }
-     public AndroidArticlePageObject(AppiumDriver driver) {
+     public AndroidArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

@@ -5,9 +5,10 @@ import lib.Platform;
 import lib.ui.Android.AndroidNavigationUi;
 import lib.ui.NavigationUI;
 import lib.ui.iOS.iOSNavigationUi;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class NavigationUIFactory {
-    public static NavigationUI get(AppiumDriver driver){
+    public static NavigationUI get(RemoteWebDriver driver){
         if (Platform.getInstance().isAndroid()){
             return new AndroidNavigationUi(driver);
         }
