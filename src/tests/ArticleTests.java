@@ -1,7 +1,7 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.ui.ArticlePajeObject;
+import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
@@ -16,10 +16,10 @@ public class ArticleTests extends CoreTestCase
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
-        String article_title=ArticlePajeObject.getArticleTitle();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        String article_title= ArticlePageObject.getArticleTitle();
 
         assertEquals(
                 "We see unexpected title",
@@ -35,12 +35,12 @@ public class ArticleTests extends CoreTestCase
         SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Appium");
-        SearchPageObject.clickByArticleWithSubstring("Appium");
+        SearchPageObject.typeSearchLine("java");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
-        ArticlePajeObject.waitForTitleElement();
-        ArticlePajeObject.swipeToFooter();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        ArticlePageObject.waitForTitleElement();
+        ArticlePageObject.swipeToFooter();
     }
 
 
@@ -52,10 +52,10 @@ public class ArticleTests extends CoreTestCase
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
-        ArticlePajeObject.assertTitlePresentInArticle();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        ArticlePageObject.assertTitlePresentInArticle();
 
 
     }

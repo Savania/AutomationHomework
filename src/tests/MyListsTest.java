@@ -1,7 +1,7 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.ui.ArticlePajeObject;
+import lib.ui.ArticlePageObject;
 import lib.ui.MyListsPageObject;
 import lib.ui.NavigationUI;
 import lib.ui.SearchPageObject;
@@ -22,13 +22,13 @@ public class MyListsTest extends CoreTestCase
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
-        ArticlePajeObject.waitForTitleElement();
-        String article_title =ArticlePajeObject.getArticleTitle();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        ArticlePageObject.waitForTitleElement();
+        String article_title = ArticlePageObject.getArticleTitle();
         String name_of_folder = "Learning programming";
 
-        ArticlePajeObject.addArticleToMyList(name_of_folder);
-        ArticlePajeObject.closeArticle();
+        ArticlePageObject.addArticleToMyList(name_of_folder);
+        ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.clickMyList();
@@ -49,26 +49,26 @@ public class MyListsTest extends CoreTestCase
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
-        ArticlePajeObject.waitForTitleElement();
-        String first_article_title =ArticlePajeObject.getArticleTitle();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        ArticlePageObject.waitForTitleElement();
+        String first_article_title = ArticlePageObject.getArticleTitle();
         String name_of_folder = "Learning programming";
 
-        ArticlePajeObject.addArticleToMyList(name_of_folder);
-        ArticlePajeObject.closeArticle();
+        ArticlePageObject.addArticleToMyList(name_of_folder);
+        ArticlePageObject.closeArticle();
 
         //Add second article
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("appium");
         SearchPageObject.clickByArticleWithSubstring("Appium");
-        String second_article_title =ArticlePajeObject.getArticleTitle();
+        String second_article_title = ArticlePageObject.getArticleTitle();
 
-        ArticlePajeObject.waitForTitleElement();
-        ArticlePajeObject.addSecondArticleToMyList(name_of_folder);
+        ArticlePageObject.waitForTitleElement();
+        ArticlePageObject.addSecondArticleToMyList(name_of_folder);
 
         //Open my list and delete on of the articles
-        ArticlePajeObject.closeArticle();
+        ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.clickMyList();
@@ -84,7 +84,7 @@ public class MyListsTest extends CoreTestCase
 
         //checking title of saved article
         MyListsPageObject.clickOnSomeArticle(second_article_title);
-        ArticlePajeObject.assertArticleHasExpectedTitle("Appium");
+        ArticlePageObject.assertArticleHasExpectedTitle("Appium");
 
     }
 }

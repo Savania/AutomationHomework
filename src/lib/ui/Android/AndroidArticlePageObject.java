@@ -1,10 +1,9 @@
 package lib.ui.Android;
 
-import io.appium.java_client.AppiumDriver;
-import lib.ui.ArticlePajeObject;
+import lib.ui.ArticlePageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class AndroidArticlePageObject extends ArticlePajeObject
+public class AndroidArticlePageObject extends ArticlePageObject
 {
     static {
         TITLE = "id:org.wikipedia:id/view_page_title_text";

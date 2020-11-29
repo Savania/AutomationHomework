@@ -1,11 +1,12 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-abstract public class ArticlePajeObject extends MainPageObject {
+abstract public class ArticlePageObject extends MainPageObject {
 
     protected static String
             TITLE ,
@@ -21,7 +22,7 @@ abstract public class ArticlePajeObject extends MainPageObject {
 
 
 
-    public ArticlePajeObject(RemoteWebDriver driver) {
+    public ArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
     /*TEMPLATES METHOD*/
@@ -42,15 +43,37 @@ abstract public class ArticlePajeObject extends MainPageObject {
 
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
-        return title_element.getAttribute("text");
+        if (Platform.getInstance().isAndroid()){
+            return title_element.getAttribute("text");
+        }
+        else if (Platform.getInstance().isIOS()) {
+            return title_element.getAttribute("name");
+        }
+        else {
+            return title_element.getText();
+        }
     }
 
     public void swipeToFooter() {
-        this.swipeUpToFindElement(
-                FOOTER_ELEMENT,
-                "Cannot find the end of article",
-                20
-        );
+        if (Platform.getInstance().isAndroid()){
+            this.swipeUpToFindElement(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    20
+            );
+        }
+        else if (Platform.getInstance().isIOS())
+        {
+            //
+        }
+
+        else {
+            this.scrollWebPageTillElementNotVisible(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40
+            );
+        }
     }
 
     public void addArticleToMyList(String name_of_folder) {

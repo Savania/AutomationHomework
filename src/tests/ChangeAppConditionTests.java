@@ -1,26 +1,31 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.ui.ArticlePajeObject;
+import lib.Platform;
+import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
+import org.openqa.selenium.PageLoadStrategy;
 
 public class ChangeAppConditionTests extends CoreTestCase
 {
     @Test
     public void testChangeScreenOrientationSearchResult(){
+        if (Platform.getInstance().isMw()){
+            return;
+        }
 
         SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
-        ArticlePajeObject ArticlePajeObject = ArticlePageObjectFactory.get(driver);
-        String title_before_rotation = ArticlePajeObject.getArticleTitle();
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        String title_before_rotation = ArticlePageObject.getArticleTitle();
         this.rotateScreenLandscape();
-        String title_after_rotation = ArticlePajeObject.getArticleTitle();
+        String title_after_rotation = ArticlePageObject.getArticleTitle();
 
         assertEquals(
                 "Article title was changed after screen rotation",
@@ -28,7 +33,7 @@ public class ChangeAppConditionTests extends CoreTestCase
                 title_after_rotation
         );
 
-        String title_after_second_rotation = ArticlePajeObject.getArticleTitle();
+        String title_after_second_rotation = ArticlePageObject.getArticleTitle();
 
         assertEquals(
                 "Article title was changed after screen rotation",
@@ -41,6 +46,9 @@ public class ChangeAppConditionTests extends CoreTestCase
 
     @Test
     public void testCheckSearchArticleInBackground(){
+        if (Platform.getInstance().isMw()){
+            return;
+        }
 
         SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
 
