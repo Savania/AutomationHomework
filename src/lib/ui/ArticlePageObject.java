@@ -18,7 +18,8 @@ abstract public class ArticlePageObject extends MainPageObject {
             MY_LIST_NAME_INPUT,
             MY_LIST_OK_BUTTON ,
             CLOSE_ARTICLE_BUTTON ,
-            TITLE_NAME_OF_SMTH_BY_SUBSTRING ;
+            TITLE_NAME_OF_SMTH_BY_SUBSTRING ,
+            ARTICLE_LINK;
 
 
 
@@ -30,6 +31,9 @@ abstract public class ArticlePageObject extends MainPageObject {
     private static String getXpathToFolderNameForSecondArticle(String substring) {
         return TITLE_NAME_OF_SMTH_BY_SUBSTRING.replace("{SUBSTRING}", substring);
     }
+    private static String getXpathToArticleLink(String substring) {
+        return ARTICLE_LINK.replace("{SUBSTRING}", substring);
+    }
     /*TEMPLATES METHOD*/
 
     public WebElement waitForTitleElement() {
@@ -40,6 +44,18 @@ abstract public class ArticlePageObject extends MainPageObject {
     public WebElement assertArticleHasExpectedTitle(String title) {
         return this.assertElementHasText(TITLE, "Cannot find artice titleon page! ", 15, title);
 
+    }
+
+
+//    public WebElement assertArticleLinkHasExpectedLink(String title) {
+//        String link= getXpathToArticleLink(title);
+//        System.out.println(link);
+//        return this.assertElementHasText(link, "Cannot find artice titleon page! ", 15, title);
+//
+//    }
+    public void ArticleLinkHasExpectedLink(String title){
+        String link= getXpathToArticleLink(title);
+        this.waitForElementPresent(link, "cannot find article with link",15);
     }
 
     public String getArticleTitle() {

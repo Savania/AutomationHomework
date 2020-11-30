@@ -17,10 +17,9 @@ public class MyListsTest extends CoreTestCase
             name_of_folder="Learning programming";
 
     @Test
-    public void testSaveFirstArticleToMyList(){
+    public void testSaveFirstArticleToMyList() throws InterruptedException {
 
         SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
-
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
@@ -31,13 +30,14 @@ public class MyListsTest extends CoreTestCase
         if (Platform.getInstance().isAndroid()){
             ArticlePageObject.addArticleToMyList(name_of_folder);
         }
-        else{
+        else {
             ArticlePageObject.addArticlesToMySaved();
         }
         if (Platform.getInstance().isMw()){
             AuthorizationPageObject AuthorizationPageObject=new AuthorizationPageObject(driver);
 
             AuthorizationPageObject.clickAuthButton();
+
             AuthorizationPageObject.enterLoginData(login,password);
             AuthorizationPageObject.submitForm();
 
@@ -66,50 +66,91 @@ public class MyListsTest extends CoreTestCase
 
     //Домашнее задание №3 ex 5
     @Test
-    public void testAddTwoArticlesAndDelOne(){
+    public void testAddTwoArticlesAndDelOne() throws InterruptedException {
 
         //Add first article to my list
         SearchPageObject SearchPageObject= SearchPageObjectFactory.get(driver);
-
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("java");
         SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
+
+
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
         String first_article_title = ArticlePageObject.getArticleTitle();
 
-        ArticlePageObject.addArticleToMyList(name_of_folder);
-        ArticlePageObject.closeArticle();
+        if (Platform.getInstance().isAndroid()){
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+            ArticlePageObject.closeArticle();
+        }
+        else{
+            ArticlePageObject.addArticlesToMySaved();
+            ArticlePageObject.closeArticle();
+        }
+        if (Platform.getInstance().isMw()){
+            AuthorizationPageObject AuthorizationPageObject=new AuthorizationPageObject(driver);
+
+            AuthorizationPageObject.clickAuthButton();
+            Thread.sleep(1000);
+            AuthorizationPageObject.enterLoginData(login,password);
+            AuthorizationPageObject.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+//            assertEquals(
+//                    "Wea are not on the same page after login",
+//                    article_title,
+//                    ArticlePageObject.getArticleTitle()
+//            );
+            ArticlePageObject.addArticlesToMySaved();
+        }
 
         //Add second article
 
         SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("appium");
-        SearchPageObject.clickByArticleWithSubstring("Appium");
+        SearchPageObject.typeSearchLine("c++");
+        SearchPageObject.clickByArticleWithSubstring("eneral-purpose programming language");
         String second_article_title = ArticlePageObject.getArticleTitle();
 
-        ArticlePageObject.waitForTitleElement();
-        ArticlePageObject.addSecondArticleToMyList(name_of_folder);
+        if (Platform.getInstance().isAndroid()){
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+            ArticlePageObject.closeArticle();
+        }
+        else if (Platform.getInstance().isIOS()){
+            ArticlePageObject.addArticlesToMySaved();
+            ArticlePageObject.closeArticle();
+        }
+        if (Platform.getInstance().isMw()){
+            ArticlePageObject.waitForTitleElement();
+//            assertEquals(
+//                    "Wea are not on the same page after login",
+//                    article_title,
+//                    ArticlePageObject.getArticleTitle()
+//            );
+            ArticlePageObject.addArticlesToMySaved();
+        }
 
         //Open my list and delete on of the articles
-        ArticlePageObject.closeArticle();
+
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+        NavigationUI.openNavigation();
+
         NavigationUI.clickMyLists();
 
         MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
-        MyListsPageObject.openFolderByName(name_of_folder);
+        if (Platform.getInstance().isAndroid()) {
+            MyListsPageObject.openFolderByName(name_of_folder);
+        }
+        MyListsPageObject.swipeByArticleToDelete(first_article_title)
 
-        MyListsPageObject.waitForElementPresentInMyList(first_article_title);
-        MyListsPageObject.waitForElementPresentInMyList(second_article_title);
-        MyListsPageObject.swipeByArticleToDelete(first_article_title);
-        MyListsPageObject.waitForElementPresentInMyList(second_article_title);
-        MyListsPageObject.waitForElementNotPresentInMyList(first_article_title);
+        ;
 
         //checking title of saved article
-        MyListsPageObject.clickOnSomeArticle(second_article_title);
-        ArticlePageObject.assertArticleHasExpectedTitle("Appium");
+        Thread.sleep(1000);
+        ArticlePageObject.ArticleLinkHasExpectedLink("C%2B%2B");
+//        MyListsPageObject.clickOnSomeArticle(second_article_title);
+//        ArticlePageObject.assertArticleHasExpectedTitle("Appium");
 
     }
 }

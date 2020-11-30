@@ -26,17 +26,17 @@ abstract public class NavigationUI extends MainPageObject{
         }
     }
 
-    public void clickMyLists()
-    {
+    public void clickMyLists() throws InterruptedException {
         if (Platform.getInstance().isMw()) {
+            Thread.sleep(1000);
             this.tryClickElementWithFewAttempts(
                     MY_LISTS_LINK,
                     "Cannot find navigation button to My list",
-                    15
+                    5
             );
-            this.waitForElementAndClick(MY_LISTS_LINK,
-                    "Cannot find navigation button to My list",
-                    5);
+//            this.waitForElementAndClick(MY_LISTS_LINK,
+//                    "Cannot find navigation button to My list",
+//                    5);
         } else {
             this.waitForElementAndClick(
                     MY_LISTS_LINK,

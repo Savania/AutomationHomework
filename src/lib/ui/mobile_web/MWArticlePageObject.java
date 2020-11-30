@@ -17,6 +17,7 @@ public class MWArticlePageObject extends ArticlePageObject
         CLOSE_ARTICLE_BUTTON = "xpath://*[contains(@content-desc,'Navigate up')]";
         TITLE_NAME_OF_SMTH_BY_SUBSTRING = "xpath://*[contains(@text,'{SUBSTRING}')]";
         OPTION_REMOVE_FROM_MY_LIST_BUTTON="css:#page-actions-watch a#ca-watch.watched";
+        ARTICLE_LINK="xpath://a[contains(@href,'/wiki/{SUBSTRING}')]";
     }
     public MWArticlePageObject(RemoteWebDriver driver) {
         super(driver);

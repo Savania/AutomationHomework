@@ -74,7 +74,7 @@ abstract public class MyListsPageObject  extends MainPageObject{
 
     public void swipeByArticleToDelete(String article_title)
     {
-        this.waitForArticleToAppearByTitle(article_title);
+//        this.waitForArticleToAppearByTitle(article_title);
         String article_xpath=getFolderXPathByName(article_title);
         if ((Platform.getInstance().isAndroid()) ||(Platform.getInstance().isIOS())){
             this.swipeElementToLeft(
@@ -84,6 +84,7 @@ abstract public class MyListsPageObject  extends MainPageObject{
         }
         else {
             String remove_locator = getRemoveButtonByTitle(article_title);
+            System.out.println(remove_locator);
             this.waitForElementAndClick(
                     remove_locator,
                     "Cannot click button to remove article from saved",
